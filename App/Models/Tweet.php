@@ -37,14 +37,21 @@ class Tweet extends Model {
     public function getAll() {
         $query = "
             select
-                id, id_usuario, tweet, data
+                t.id, t.id_usuario, u.nome, t.tweet, DATE_FORMAT(t.data, '%d/%m/%Y %H:%i') as data
             from
-                tweets
+                tweets as t
+            left join
+                usuarios as u on(t.id_usuario = u.id)
+            where
+                t.id_usuario = :id_usuario
+            order by
+                t.data desc
         ";
 
         $stmt = $this->db->prepare($query);
-        $stmt->execute();
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+        $stmt->execute(); 
 
-        return $this->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
