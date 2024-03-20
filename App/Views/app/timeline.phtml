@@ -66,8 +66,8 @@
 		<div class="col-md-6">
 			<div class="row mb-2">
 				<div class="col tweetBox">
-					<form action="/tweet" method="post">
-						<textarea name="tweet" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+					<form method="post" action="/tweet">
+						<textarea class="form-control" name="tweet" id="exampleFormControlTextarea1" rows="3"></textarea>
 						
 						<div class="col mt-2 d-flex justify-content-end">
 							<button type="submit" class="btn btn-primary">Tweet</button>
@@ -78,23 +78,20 @@
 			</div>
 
 			<?php foreach($this->view->tweets as $id_tweet => $tweet) { ?>
-
 				<div class="row tweet">
 					<div class="col">
-						<p><strong><?= $tweet['nome'] ?></strong> <small><span class="text text-muted">- <?= $tweet['data'] ?></span></small></p>
-						<p><?= $tweet['tweet'] ?></p>
-
+						<p><strong><?=$tweet['nome']?></strong> <small><span class="text text-muted">- <?=$tweet['data']?></span></small></p>
+						<p><?=$tweet['tweet']?></p>
 						<br />
 						<?php if($tweet['id_usuario'] == $_SESSION['id']) { ?>
 							<form>
 								<div class="col d-flex justify-content-end">
-									<a href="/remover_tweet" class="btn btn-danger"><small>Remover</small></a>
+									<button type="submit" class="btn btn-danger"><small>Remover</small></button>
 								</div>
 							</form>
 						<?php } ?>
 					</div>
 				</div>
-
 			<?php } ?>
 
 
